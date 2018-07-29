@@ -34,6 +34,7 @@ public class CartServiceImpl implements ICartService {
     @Autowired
     private ProductMapper productMapper;
 
+    @Override
     public ServerResponse<CartVo> add(Integer userId, Integer count, Integer productId) {
 
         if (productId == null || count == null) {
@@ -58,6 +59,7 @@ public class CartServiceImpl implements ICartService {
         return this.getListByUserId(userId);
     }
 
+    @Override
     public ServerResponse<CartVo> update(Integer userId, Integer count, Integer productId) {
 
         if (productId == null || count == null) {
@@ -72,6 +74,7 @@ public class CartServiceImpl implements ICartService {
         return this.getListByUserId(userId);
     }
 
+    @Override
     public ServerResponse<CartVo> deleteProduct(Integer userId,String productIds) {
         List<String> productList = Splitter.on(",").splitToList(productIds);
         if(CollectionUtils.isEmpty(productList)) {
@@ -81,16 +84,19 @@ public class CartServiceImpl implements ICartService {
         return this.getListByUserId(userId);
     }
 
+    @Override
     public ServerResponse<CartVo> getListByUserId(Integer userId) {
         CartVo cartVo = this.getCartVoLimit(userId);
         return ServerResponse.createBySuccess(cartVo);
     }
 
+    @Override
     public ServerResponse<CartVo> selectOrUnSelect(Integer userId,Integer productId, Integer checked) {
         cartMapper.checkedOrUnCheckedProduct(userId,productId,checked);
         return this.getListByUserId(userId);
     }
 
+    @Override
     public ServerResponse<Integer> getCartProductCount(Integer userId) {
         if(userId == null) {
             return ServerResponse.createBySuccess(0);

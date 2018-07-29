@@ -44,6 +44,7 @@ public class UserServiceImpl implements IUserService {
         return ServerResponse.createBySuccess("登录成功",user);
     }
 
+    @Override
     public ServerResponse<String> register(User user) {
 
         ServerResponse vaildResponse = this.checkVaild(user.getUsername(),Const.USERNAME);
@@ -66,6 +67,7 @@ public class UserServiceImpl implements IUserService {
         return ServerResponse.createBySuccess("注册成功");
     }
 
+    @Override
     public ServerResponse<String> checkVaild(String str,String type) {
         if(StringUtils.isNotBlank(type)) {
             // 开始校验
@@ -88,6 +90,7 @@ public class UserServiceImpl implements IUserService {
         return ServerResponse.createBySuccessMessage("校验成功");
     }
 
+    @Override
     public ServerResponse selectQuestion(String username) {
         ServerResponse vaildResponse = this.checkVaild(username,Const.USERNAME);
         if(vaildResponse.isSuccess()) {
@@ -102,6 +105,7 @@ public class UserServiceImpl implements IUserService {
         return ServerResponse.createByErrorMessage("找回密码的问题是空的");
     }
 
+    @Override
     public ServerResponse<String> checkAnswer(String username,String question,String answer){
         int resultCount = userMapper.checkAnswer(username,question,answer);
         if(resultCount > 0 ) {
@@ -114,6 +118,7 @@ public class UserServiceImpl implements IUserService {
         return ServerResponse.createByErrorMessage("问题的答案错误");
     }
 
+    @Override
     public ServerResponse<String> forgetResetPassword(String username,String passwordNew,String forgetToken) {
         if(StringUtils.isBlank(forgetToken)) {
             return ServerResponse.createByErrorMessage("参数错误，token需要传递");
@@ -142,6 +147,7 @@ public class UserServiceImpl implements IUserService {
         return ServerResponse.createByErrorMessage("修改密码失败");
     }
 
+    @Override
     public ServerResponse<String> resetPassword(String passwordOld,String passwordNew,User user) {
         // 防止横向越权，校验一下这个用户的旧密码，一定要是这个用户
         int resultCount = userMapper.checkPassword(MD5Util.MD5EncodeUtf8(passwordOld),user.getId());
@@ -158,6 +164,7 @@ public class UserServiceImpl implements IUserService {
         return ServerResponse.createByErrorMessage("密码更新失败");
     }
 
+    @Override
     public ServerResponse<User> updateInformation(User user) {
         // username是不能更新
         // email也要进行一个校验，校验email是不是已存在，并且存在的email如果相同
@@ -178,6 +185,7 @@ public class UserServiceImpl implements IUserService {
         return ServerResponse.createByErrorMessage("更新个人信息失败");
    }
 
+   @Override
    public ServerResponse<User> getInformation(Integer userId) {
         User user = userMapper.selectByPrimaryKey(userId);
         if(user == null) {
@@ -190,6 +198,7 @@ public class UserServiceImpl implements IUserService {
 
    //backend
 
+    @Override
     public ServerResponse checkAdminRole(User user) {
         if(user != null && user.getRole().intValue() == Const.Role.ROLE_ADMIN) {
             return ServerResponse.createBySuccess();
