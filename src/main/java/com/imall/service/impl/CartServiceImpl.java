@@ -1,4 +1,5 @@
 package com.imall.service.impl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
