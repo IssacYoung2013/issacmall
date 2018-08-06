@@ -26,7 +26,7 @@ import javax.servlet.http.HttpSession;
  * desc:
  */
 @Controller
-@RequestMapping("/userspringsession/")
+@RequestMapping("/user/springsession/")
 public class UserSpringSessionController {
 
     @Autowired
