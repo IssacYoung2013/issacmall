@@ -228,4 +228,21 @@
     FROM imall_order
     ORDER BY  create_time desc
   </select>
+
+  <select id="selectOrderStatusByCreateTime" resultMap="BaseResultMap" parameterType="map">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM imall_order
+    WHERE status = #{status}
+    <![CDATA[
+    AND  create_time <= #{date}
+    ]]>
+    ORDER BY  create_time desc
+  </select>
+
+  <update id="closeOrderByOrderId" parameterType="int">
+    UPDATE imall_order
+    SET status = 0,update_time=now()
+    WHERE id = #{id}
+  </update>
 </mapper>
