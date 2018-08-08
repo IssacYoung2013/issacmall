@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <property name="LOG_HOME" value="${CATALINE_HOME/logs}"></property>
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoding>UTF-8</encoding>
         <encoder>
@@ -12,9 +13,9 @@
 
     <appender name="imall" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!--<File>d:/imalllog/imall.log</File>-->
-        <File>E:\Program Files\apache-tomcat-7.0.90\logs\imall.log</File>
+        <File>${LOG_HOME}\imall.log</File>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>E:\Program Files\apache-tomcat-7.0.90\logs\imall.log.%d{yyyy-MM-dd}.gz</fileNamePattern>
+            <fileNamePattern>${LOG_HOME}\imall.log.%d{yyyy-MM-dd}.gz</fileNamePattern>
             <append>true</append>
             <maxHistory>10</maxHistory>
         </rollingPolicy>
@@ -28,7 +29,7 @@
         <!--<File>d:/imalllog/error.log</File>-->
         <File>E:\Program Files\apache-tomcat-7.0.90\logs\error.log</File>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>E:\Program Files\apache-tomcat-7.0.90\logs\error.log.%d{yyyy-MM-dd}.gz</fileNamePattern>
+            <fileNamePattern>${LOG_HOME}\error.log.%d{yyyy-MM-dd}.gz</fileNamePattern>
             <!--<fileNamePattern>d:/imalllog/error.log.%d{yyyy-MM-dd}.gz</fileNamePattern>-->
             <append>true</append>
             <maxHistory>10</maxHistory>
@@ -46,6 +47,7 @@
     <logger name="com.imall" additivity="false" level="INFO" >
         <appender-ref ref="imall" />
         <appender-ref ref="console"/>
+        <appender-ref ref="error"/>
     </logger>
 
 
