@@ -222,4 +222,10 @@
     WHERE id = #{id}
     FOR UPDATE
   </select>
+  
+  <select id="getProductCount" resultType="int">
+    SELECT
+    COUNT(1)
+    FROM imall_product
+  </select>
 </mapper>

@@ -26,4 +26,6 @@ public interface ProductMapper {
 
     // 一定要用Integer int无法为null 考虑商品删除
     Integer selectStockByProductId(Integer id);
+
+    int getProductCount();
 }

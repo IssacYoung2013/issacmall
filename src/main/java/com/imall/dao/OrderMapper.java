@@ -29,4 +29,6 @@ public interface OrderMapper {
     List<Order> selectOrderStatusByCreateTime(@Param("status") Integer status,@Param("date") String date);
 
     int closeOrderByOrderId(Integer id);
+
+    int getOrderCount();
 }
