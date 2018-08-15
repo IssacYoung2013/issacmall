@@ -1,5 +1,8 @@
 package com.imall.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Lists;
 import com.imall.common.Const;
 import com.imall.common.ServerResponse;
 import com.imall.dao.UserMapper;
@@ -7,10 +10,12 @@ import com.imall.pojo.User;
 import com.imall.service.IUserService;
 import com.imall.util.MD5Util;
 import com.imall.util.RedisShardedPoolUtil;
+import com.imall.vo.ProductListVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -204,5 +209,23 @@ public class UserServiceImpl implements IUserService {
             return ServerResponse.createBySuccess();
         }
         return ServerResponse.createByError();
+    }
+
+    @Override
+    public ServerResponse<PageInfo> getUserList(int pageNum, int pageSize) {
+        // startPage -- start
+        // 填充自己的sql查询逻辑
+        // pageHelpershou收尾
+        PageHelper.startPage(pageNum, pageSize);
+        List<User> userList = userMapper.selectList();
+        List<User> userList1 = Lists.newArrayList();
+        for (User user :
+                userList) {
+            user.setPassword(StringUtils.EMPTY);
+            userList1.add(user);
+        }
+        PageInfo pageResult = new PageInfo(userList);
+        pageResult.setList(userList1);
+        return ServerResponse.createBySuccess(pageResult);
     }
 }

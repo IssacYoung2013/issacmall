@@ -214,4 +214,10 @@
     FROM imall_user
   </select>
 
+  <select id="selectList" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    from imall_user
+  </select>
+
 </mapper>

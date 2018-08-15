@@ -1,5 +1,6 @@
 package com.imall.service;
 
+import com.github.pagehelper.PageInfo;
 import com.imall.common.ServerResponse;
 import com.imall.pojo.User;
 
@@ -31,4 +32,6 @@ public interface IUserService {
     ServerResponse<User> getInformation(Integer userId);
 
     ServerResponse checkAdminRole(User user);
+
+    ServerResponse<PageInfo> getUserList(int pageNum, int pageSize);
 }
