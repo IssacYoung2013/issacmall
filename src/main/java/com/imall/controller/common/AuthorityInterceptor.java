@@ -2,6 +2,7 @@ package com.imall.controller.common;
 
 import com.google.common.collect.Maps;
 import com.imall.common.Const;
+import com.imall.common.ResponseCode;
 import com.imall.common.ServerResponse;
 import com.imall.pojo.User;
 import com.imall.util.CookieUtil;
@@ -85,7 +86,7 @@ public class AuthorityInterceptor implements HandlerInterceptor {
                     resultMap.put("error message", "请登录管理员");
                     out.print(JsonUtil.obj2String(resultMap));
                 } else {
-                    out.print(JsonUtil.obj2String(ServerResponse.createByErrorMessage("拦截器拦截，用户未登录")));
+                    out.print(JsonUtil.obj2String(ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"拦截器拦截，用户未登录")));
                 }
             } else {
                 if (StringUtils.equals(className, "ProductMangerController") && StringUtils.equals(methodName, "richtextImgUpload")) {
@@ -94,7 +95,7 @@ public class AuthorityInterceptor implements HandlerInterceptor {
                     resultMap.put("error message", "无权限操作");
                     out.print(JsonUtil.obj2String(resultMap));
                 } else {
-                    out.print(JsonUtil.obj2String(ServerResponse.createByErrorMessage("拦截器拦截，用户无权限操作")));
+                    out.print(JsonUtil.obj2String(ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"拦截器拦截，用户无权限操作")));
                 }
             }
 
